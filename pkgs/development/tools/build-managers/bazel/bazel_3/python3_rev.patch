@@ -1,0 +1,37 @@
+Reverses commit 15d80dc11b5270ce6cc67fd4e9b502dfb0204e3a
+
+From: aldersondrive <alderson@google.com>
+Date: Wed, 5 Feb 2020 05:56:51 -0800
+Subject: [PATCH] Tweak Python semantics for Python 3 and OpenBSD.
+
+As discussed at https://github.com/bazelbuild/bazel/pull/10432#issuecomment-571746342, Bazel is already switching to assume that the Python binary is called `python3`, not `python`.
+
+This change is also useful for the OpenBSD port in https://github.com/bazelbuild/bazel/issues/10250. (On OpenBSD, the python executable is called `python3`, and no `python` binary exists.)
+
+Closes #10432.
+
+PiperOrigin-RevId: 293351316
+---
+
+--- b/src/main/java/com/google/devtools/build/lib/bazel/rules/python/BazelPythonSemantics.java
++++ a/src/main/java/com/google/devtools/build/lib/bazel/rules/python/BazelPythonSemantics.java
+@@ -235,18 +235,13 @@
+ 
+       if (OS.getCurrent() != OS.WINDOWS) {
+         PathFragment shExecutable = ShToolchain.getPathOrError(ruleContext);
+-        // TODO(#8685): Remove this special-case handling as part of making the proper shebang a
+-        // property of the Python toolchain configuration.
+-        String pythonExecutableName = OS.getCurrent() == OS.OPENBSD ? "python3" : "python";
+         ruleContext.registerAction(
+             new SpawnAction.Builder()
+                 .addInput(zipFile)
+                 .addOutput(executable)
+                 .setShellCommand(
+                     shExecutable,
++                    "echo '#!/usr/bin/env python' | cat - "
+-                    "echo '#!/usr/bin/env "
+-                        + pythonExecutableName
+-                        + "' | cat - "
+                         + zipFile.getExecPathString()
+                         + " > "
+                         + executable.getExecPathString())
