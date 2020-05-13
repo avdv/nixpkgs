@@ -9948,7 +9948,7 @@ in
 
   bam = callPackage ../development/tools/build-managers/bam {};
 
-  bazel = bazel_2;
+  bazel = bazel_3;
 
   bazel_0 = bazel_0_26;
 
