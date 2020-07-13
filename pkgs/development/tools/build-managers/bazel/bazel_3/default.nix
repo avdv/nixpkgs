@@ -25,11 +25,11 @@
 }:
 
 let
-  version = "3.3.1";
+  version = "3.4.0";
 
   src = fetchurl {
     url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip";
-    sha256 = "0ir796kl8r9hpr3li26qsdy1z2lx2bv82zmk4a2s7q64clyg9wg0";
+    sha256 = "1n2hwjbv6cwa5qwn6zh6wp25lqvki1g82ki9ji9xvaavj3wap0vm";
   };
 
   # Update with `eval $(nix-build -A bazel.updater)`,
@@ -157,8 +157,6 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
 
   patches = [
-    ./python-shebang.patch
-
     # On Darwin, the last argument to gcc is coming up as an empty string. i.e: ''
     # This is breaking the build of any C target. This patch removes the last
     # argument if it's found to be an empty string.
