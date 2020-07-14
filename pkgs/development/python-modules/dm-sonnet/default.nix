@@ -39,11 +39,6 @@ let
       sha256 = "0000000000000000000000000000000000000000000000000000";
     };
 
-    bazelFlags = [
-      # https://github.com/deepmind/sonnet/issues/134
-      "--incompatible_disable_deprecated_attr_params=false"
-    ];
-
     buildAttrs = {
       preBuild = ''
         patchShebangs .
