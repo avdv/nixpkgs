@@ -49,12 +49,14 @@ let
       srcs.io_bazel_rules_sass
       srcs.platforms
       (if stdenv.hostPlatform.isDarwin
-       then srcs."java_tools_javac11_darwin-v8.0.zip"
-       else srcs."java_tools_javac11_linux-v8.0.zip")
-      srcs."coverage_output_generator-v2.1.zip"
+       then srcs."java_tools_javac11_darwin-v9.0.zip"
+       else srcs."java_tools_javac11_linux-v9.0.zip")
+      srcs."coverage_output_generator-v2.3.zip"
       srcs.build_bazel_rules_nodejs
       srcs."android_tools_pkg-0.19.0rc1.tar.gz"
       srcs."bazel-toolchains-3.1.0.tar.gz"
+      srcs."com_github_grpc_grpc"
+      srcs."9effcbcb27f0a665f9f345030188c0b291e32482.tar.gz"
       srcs.rules_pkg
       srcs.rules_cc
       srcs.rules_java
@@ -111,7 +113,7 @@ let
   remote_java_tools = stdenv.mkDerivation {
     name = "remote_java_tools_${system}";
 
-    src = srcDepsSet."java_tools_javac11_${system}-v8.0.zip";
+    src = srcDepsSet."java_tools_javac11_${system}-v9.0.zip";
 
     nativeBuildInputs = [ autoPatchelfHook unzip ];
     buildInputs = [ gcc-unwrapped ];
