@@ -25,11 +25,11 @@
 }:
 
 let
-  version = "3.4.0";
+  version = "3.4.1";
 
   src = fetchurl {
     url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip";
-    sha256 = "1n2hwjbv6cwa5qwn6zh6wp25lqvki1g82ki9ji9xvaavj3wap0vm";
+    sha256 = "1a1vyrh7qhwkghq3l69a5p7zq1zvw7v5rci5b68kcd7jr08izbr7";
   };
 
   # Update with `eval $(nix-build -A bazel.updater)`,
