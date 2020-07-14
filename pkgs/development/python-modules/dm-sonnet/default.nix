@@ -15,7 +15,7 @@
 }:
 
 let
-  version = "1.33";
+  version = "1.36";
 
   # first build all binaries and generate setup.py using bazel
   bazel-build = buildBazelPackage {
@@ -25,7 +25,7 @@ let
       owner = "deepmind";
       repo = "sonnet";
       rev = "v${version}";
-      sha256 = "1nqsja1s8jrkq6v1whgh7smk17313mjr9vs3k5c1m8px4yblzhqc";
+      sha256 = "1hvzh8g7a8zrnjlpp0v3whcw22s5dvsxc1gzs362jrxxq3xlcn65";
     };
 
     nativeBuildInputs = [
