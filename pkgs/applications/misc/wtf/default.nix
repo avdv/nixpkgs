@@ -3,6 +3,7 @@
 , lib
 , makeWrapper
 , ncurses
+, stdenv
 }:
 
 buildGoModule rec {
@@ -16,7 +17,10 @@ buildGoModule rec {
     sha256 = "1055shnf716ga46wwcaffdpgc1glr8vrqrbs2sqbkr3wjan6n0nw";
    };
 
-  vendorSha256 = "0l1q29mdb13ir7n1x65jfnrmy1lamlsa6hm2jagf6yjbm6wf1kw4";
+  vendorSha256 = if stdenv.isDarwin then
+      "0p4cy7snxkx5in7c0nsy6bm0f1gn297rzwalm5rdfvhgdlb102nw"
+    else
+      "0l1q29mdb13ir7n1x65jfnrmy1lamlsa6hm2jagf6yjbm6wf1kw4";
 
   doCheck = false;
 
