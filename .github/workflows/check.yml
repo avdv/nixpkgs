@@ -12,7 +12,8 @@ jobs:
     - uses: cachix/install-nix-action@v12
     - run: nix-build -A libmodplug --keep-failed
     - uses: actions/upload-artifact@v2
+      if: failure()
       with:
-        name: my-artifact
-        path: /tmp/nix-build-*
+        name: nix-build
+        path: /private/tmp/nix-build-libmodplug-*
 
