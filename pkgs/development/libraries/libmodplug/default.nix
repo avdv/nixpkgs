@@ -6,6 +6,8 @@ in stdenv.mkDerivation rec {
   pname = "libmodplug";
   inherit version;
 
+  patches = [ ./no-min-version.diff ];
+
   meta = with stdenv.lib; {
     description = "MOD playing library";
     homepage    = "http://modplug-xmms.sourceforge.net/";

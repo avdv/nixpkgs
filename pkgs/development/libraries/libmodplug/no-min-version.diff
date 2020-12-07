@@ -1,0 +1,13 @@
+--- a/configure	2020-12-07 14:12:35.422830927 +0100
++++ b/configure	2020-12-07 14:20:22.479538391 +0100
+@@ -16731,8 +16731,8 @@
+ # require 10.5+ for osx/x86_64 builds
+ case "$host" in
+ 	x86_64-*-darwin*)
+-		CXXFLAGS="$CXXFLAGS -mmacosx-version-min=10.5"
+-		LDFLAGS="$LDFLAGS -mmacosx-version-min=10.5" ;;
++		#CXXFLAGS="$CXXFLAGS -mmacosx-version-min=10.5"
++		#LDFLAGS="$LDFLAGS -mmacosx-version-min=10.5" ;;
+ esac
+ 
+ # symbol visibility
