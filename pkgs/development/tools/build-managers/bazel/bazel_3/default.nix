@@ -100,7 +100,7 @@ let
     [ bash coreutils findutils gawk gnugrep gnutar gnused gzip which unzip file zip ];
 
   # Java toolchain used for the build and tests
-  javaToolchain = "@bazel_tools//tools/jdk:toolchain_host${buildJdkName}";
+  javaToolchain = "@bazel_tools//tools/jdk:toolchain_${buildJdkName}";
 
   platforms = lib.platforms.linux ++ lib.platforms.darwin;
 
@@ -358,7 +358,7 @@ stdenv.mkDerivation rec {
 
       # Framework search paths aren't added by bintools hook
       # https://github.com/NixOS/nixpkgs/pull/41914
-      export NIX_LDFLAGS+=" -F${CoreFoundation}/Library/Frameworks -F${CoreServices}/Library/Frameworks -F${Foundation}/Library/Frameworks"
+      export NIX_LDFLAGS+=" -F${CoreFoundation}/Library/Frameworks -F${CoreServices}/Library/Frameworks -F${Foundation}/Library/Frameworks -v"
 
       # libcxx includes aren't added by libcxx hook
       # https://github.com/NixOS/nixpkgs/pull/41589
@@ -370,6 +370,8 @@ stdenv.mkDerivation rec {
         src/tools/xcode/realpath/BUILD \
         src/tools/xcode/stdredirect/BUILD \
         tools/osx/BUILD
+
+      substituteInPlace scripts/bootstrap/compile.sh --replace ' -mmacosx-version-min=10.9' ""
 
       # nixpkgs's libSystem cannot use pthread headers directly, must import GCD headers instead
       sed -i -e "/#include <pthread\/spawn.h>/i #include <dispatch/dispatch.h>" src/main/cpp/blaze_util_darwin.cc
