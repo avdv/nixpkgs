@@ -25,7 +25,7 @@ index 4c85cd9b6b..6c611e3d25 100644
  # Call the C++ compiler
 -%{cc} "$@"
 +if [[ ${*: -1} = "" ]]; then
-+    %{cc} "${@:0:$#}"
++    %{cc} "${@:1:$#}"
 +else
 +    %{cc} "$@"
 +fi

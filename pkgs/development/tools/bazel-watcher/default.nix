@@ -27,6 +27,8 @@ buildBazelPackage rec {
 
   bazelTarget = "//ibazel";
 
+  bazelBuildFlags = ["--verbose_failures"];
+
   fetchAttrs = {
     inherit patches;
 

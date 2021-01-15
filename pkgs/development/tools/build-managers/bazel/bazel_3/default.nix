@@ -366,7 +366,7 @@ stdenv.mkDerivation rec {
 
       # Framework search paths aren't added by bintools hook
       # https://github.com/NixOS/nixpkgs/pull/41914
-      export NIX_LDFLAGS+=" -F${CoreFoundation}/Library/Frameworks -F${CoreServices}/Library/Frameworks -F${Foundation}/Library/Frameworks"
+      export NIX_LDFLAGS+=" -F${CoreFoundation}/Library/Frameworks -F${CoreServices}/Library/Frameworks -F${Foundation}/Library/Frameworks -v"
 
       # libcxx includes aren't added by libcxx hook
       # https://github.com/NixOS/nixpkgs/pull/41589
