@@ -176,6 +176,8 @@ stdenv.mkDerivation rec {
     # argument if it's found to be an empty string.
     ../trim-last-argument-to-gcc-if-empty.patch
 
+    ./no-arc.patch
+
     # --experimental_strict_action_env (which may one day become the default
     # see bazelbuild/bazel#2574) hardcodes the default
     # action environment to a non hermetic value (e.g. "/usr/local/bin").
