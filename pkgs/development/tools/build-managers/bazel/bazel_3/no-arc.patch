@@ -21,3 +21,14 @@
          "-framework",
          "CoreServices",
          "-framework",
+--- a/tools/osx/BUILD	2021-02-01 11:01:02.191659553 +0100
++++ b/tools/osx/BUILD	2021-02-01 11:04:29.735071019 +0100
+@@ -27,7 +27,7 @@
+ ])
+ 
+ DARWIN_XCODE_LOCATOR_COMPILE_COMMAND = """
+-  /usr/bin/xcrun --sdk macosx clang -mmacosx-version-min=10.9 -fobjc-arc -framework CoreServices \
++  /usr/bin/xcrun --sdk macosx clang -mmacosx-version-min=10.9 -framework CoreServices \
+       -framework Foundation -o $@ $<
+ """
+ 
