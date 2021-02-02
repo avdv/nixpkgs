@@ -34,6 +34,7 @@ buildBazelPackage rec {
 
     preBuild = ''
       patchShebangs .
+      export BAZEL_USE_CPP_ONLY_TOOLCHAIN=1
     '';
 
     preInstall = ''
