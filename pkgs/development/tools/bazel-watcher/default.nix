@@ -13,13 +13,13 @@ let
 in
 buildBazelPackage rec {
   name = "bazel-watcher-${version}";
-  version = "0.14.0";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "bazelbuild";
     repo = "bazel-watcher";
     rev = "v${version}";
-    sha256 = "0gigl1lg8sb4bj5crvj54329ws4yirldbncs15f96db6vhp0ig7r";
+    sha256 = "0n13ca4a719safgxxsmhn72ws22209mscj639g31rvzqsrb0sk4h";
   };
 
   nativeBuildInputs = [ go git python ];
