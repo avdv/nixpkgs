@@ -63,6 +63,8 @@ buildBazelPackage rec {
     inherit patches;
 
     preBuild = ''
+      export CC="$NIX_CC/bin/$CXX"
+
       patchShebangs .
 
       substituteInPlace ibazel/BUILD --replace '{STABLE_GIT_VERSION}' ${version}
