@@ -63,7 +63,22 @@ buildBazelPackage rec {
     inherit patches;
 
     preBuild = ''
-      export CC="$NIX_CC/bin/$CXX"
+      export CC="$PWD/clangComp"
+
+      cat > clangComp <<'EOF'
+      #! ${stdenv.shell}
+      function isCxx() {
+         if [ $# -eq 0 ]; then false
+         elif [ "$1" == '-xc++' ]; then true
+         else isCxx "''${@:2}"; fi
+      }
+      if isCxx "$@"; then
+        exec "${stdenv.cc}/bin/c++" "$@"
+      else
+        exec "${stdenv.cc}/bin/cc" "$@"
+      fi
+      EOF
+      chmod +x clangComp
 
       patchShebangs .
 
