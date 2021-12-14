@@ -62,6 +62,8 @@ buildBazelPackage rec {
   buildAttrs = {
     inherit patches;
 
+    bazelFlags = [ "--sandbox-debug" ];
+
     preBuild = ''
       export CC="$PWD/clangComp"
 
@@ -70,6 +72,7 @@ buildBazelPackage rec {
       function isCxx() {
          if [ $# -eq 0 ]; then false
          elif [ "$1" == '-xc++' ]; then true
+         elif [[ -f "$1" && "$1" =~ [.](hh|H|hp|hxx|hpp|HPP|h[+]{2}|tcc|cc|cp|cxx|cpp|CPP|c[+]{2}|C)$ ]]; then true
          else isCxx "''${@:2}"; fi
       }
       if isCxx "$@"; then
