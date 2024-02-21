@@ -1,5 +1,4 @@
-{
-  bazel
+{ bazel
 , bazelTest
 , bazel-examples
 , stdenv
@@ -31,7 +30,7 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" {} (''
+  workspaceDir = runLocal "our_workspace" { } (''
     cp -r ${bazel-examples}/cpp-tutorial/stage3 $out
     find $out -type d -exec chmod 755 {} \;
   ''
@@ -45,18 +44,26 @@ let
     inherit workspaceDir;
     bazelPkg = bazel;
     bazelScript = ''
+      set -xv
+      ${bazel}/bin/bazel version
+      ${bazel}/bin/bazel query @bazel_tools//tools/cpp:compiler
+      ${bazel}/bin/bazel config
       ${bazel}/bin/bazel build //... \
         --verbose_failures \
         --distdir=${distDir} \
         --curses=no \
         ${extraBazelArgs} \
     '' + lib.optionalString (stdenv.isDarwin) ''
-        --cxxopt=-x --cxxopt=c++ --host_cxxopt=-x --host_cxxopt=c++ \
-        --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
+      --cxxopt=-x --cxxopt=c++ --host_cxxopt=-x --host_cxxopt=c++ \
+      --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
     '' + lib.optionalString (stdenv.isDarwin && Foundation != null) ''
-        --linkopt=-Wl,-F${Foundation}/Library/Frameworks \
-        --linkopt=-L${darwin.libobjc}/lib \
+      --linkopt=-Wl,-F${Foundation}/Library/Frameworks \
+      --linkopt=-L${darwin.libobjc}/lib \
+    '' + ''
+      || ( cat $( ${bazel}/bin/bazel info output_base )/external/local_config_cc/BUILD \
+               $( ${bazel}/bin/bazel info output_base )/external/local_config_cc/cc_wrapper.sh ; exit 1)
     '';
   };
 
-in testBazel
+in
+testBazel
