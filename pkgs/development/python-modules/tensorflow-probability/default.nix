@@ -75,7 +75,8 @@ let
       '';
     };
   };
-in buildPythonPackage {
+in
+buildPythonPackage {
   inherit version pname;
   format = "wheel";
 
